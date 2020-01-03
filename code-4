@@ -1,0 +1,52 @@
+func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
+	m := len(nums1)
+	n := len(nums2)
+	if m>n{
+		tmp := m
+		m = n
+		n = tmp
+		tmparrary := nums1
+		nums1 = nums2
+		nums2 = tmparrary
+	}
+	l1 := 0
+	l2 := m
+	all := (m+n+1)/2
+	for l1<=l2{
+		i := (l1 + l2)/2
+		j := all -i
+		if i<l2 && nums1[i] < nums2[j-1] {
+			l1 = i + 1
+		}else if i>l1 && nums1[i-1] > nums2[j]{
+			l2 = i - 1
+		}else {
+			leftmid := 0
+			if i == 0{
+				leftmid = nums2[j-1]
+			}else if j==0{
+				leftmid = nums1[i-1]
+			}else {
+				leftmid  = maxInt(nums1[i-1],nums2[j-1])
+			}
+			if (m+n)%2 == 1{
+				return float64(leftmid)
+			}
+
+			fmt.Println(leftmid)
+			rightmid := 0
+			if i==m{
+				rightmid = nums2[j]
+			}else if j == n{
+				rightmid = nums1[i]
+			}else {
+				rightmid = minInt(nums2[j], nums1[i])
+			}
+			fmt.Println(rightmid)
+			res := float64(leftmid+rightmid)/2.0
+			fmt.Println(res)
+			return float64(res)
+		}
+	}
+	return 0.0
+
+}
