@@ -1,0 +1,27 @@
+func lengthOfLongestSubstring(s string) int {
+	s_array := []byte(s)
+	n := len(s_array)
+	res := 0
+	start := 0
+	hashmap := make(map[byte]int)
+	for end:=0;end<n;end++{
+		tmp := s_array[end]
+		if val,ok:=hashmap[tmp];ok{
+			start = maxInt(start,val)
+		}
+		res = maxInt(res,end-start+1)
+		hashmap[tmp]=end+1
+	}
+
+	return res
+
+}
+
+
+
+func maxInt(a,b int) int{
+	if a<b{
+		a = b
+	}
+	return a
+}
