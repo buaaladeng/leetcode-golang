@@ -1,0 +1,32 @@
+func intToRoman(num int) string {
+	numMap := make(map[int]string)
+	if num<1 ||num > 3999{
+		return ""
+	}
+	numMap[1] = "I"
+	numMap[4] = "IV"
+	numMap[5] = "V"
+	numMap[9] = "IX"
+	numMap[10] = "X"
+	numMap[40] = "XL"
+	numMap[50] = "L"
+	numMap[90] = "XC"
+	numMap[100] = "C"
+	numMap[400] = "CD"
+	numMap[500] = "D"
+	numMap[900] = "CM"
+	numMap[1000] = "M"
+	var nums = []int{1000,900,500,400,100,90,50,40,10,9,5,4,1}
+	index :=0
+	res := ""
+	for num>0{
+		tmp := num - nums[index]
+		if tmp<0{
+			index++
+			continue
+		}
+		res += numMap[nums[index]]
+		num = tmp
+	}
+	return res
+}
