@@ -1,0 +1,35 @@
+func romanToInt(s string) int {
+	numMap := make(map[string]int)
+	numMap["I"] = 1
+	numMap["IV"] = 4
+	numMap["V"] = 5
+	numMap["IX"] = 9
+	numMap["X"] = 10
+	numMap["XL"] = 40
+	numMap["L"] = 50
+	numMap["XC"] = 90
+	numMap["C"] = 100
+	numMap["CD"] = 400
+	numMap["D"] = 500
+	numMap["CM"] = 900
+	numMap["M"] = 1000
+	n := len(s)
+	array := []byte(s)
+	res := 0
+	start := 0
+	for start < n {
+		end := start + 2
+		if end >= n {
+			end = n
+		}
+		if val,ok := numMap[string(array[start:end])];ok{
+			res += val
+			start = end
+			continue
+		}
+		val,_:= numMap[string(array[start:start+1])]
+		res += val
+		start++
+	}
+	return res
+}
