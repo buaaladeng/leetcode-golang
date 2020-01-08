@@ -1,0 +1,45 @@
+func threeSum(nums []int) [][]int {
+	res := make([][]int,0)
+	sort.Ints(nums)
+
+	for i:=0;i<len(nums);i++{
+		if nums[i]>0{
+			break
+		}
+		if i>0 && nums[i]==nums[i-1]{
+			continue
+		}
+		j := i+1
+		k:= len(nums)-1
+		for j<k{
+			one := make([]int, 3)
+			sum := nums[i] + nums[j] + nums[k]
+			if sum == 0{
+				one[0] = nums[i]
+				one[1] = nums[j]
+				one[2] = nums[k]
+				res = append(res, one)
+				k--
+				j++
+				for j<k && nums[k] == nums[k+1]{
+					k--
+				}
+				for j<k && nums[j] == nums[j-1]{
+					j++
+				}
+			}else if sum>0{
+				k--
+				for j<k && nums[k] == nums[k+1]{
+					k--
+				}
+			}else {
+				j++
+				for j<k && nums[j] == nums[j-1]{
+					j++
+				}
+			}
+		}
+
+	}
+	return res
+}
