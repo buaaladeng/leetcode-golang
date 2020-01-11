@@ -1,0 +1,20 @@
+func generateParenthesis(n int) []string {
+	res := make([]string,0)
+	tmp := make([]byte,0)
+	dfs22(0,0,n,&res,tmp)
+	return res
+}
+
+func dfs22(left int,right int ,n int, res *[]string, tmp []byte){
+	if left == n && right == n{
+		*res = append(*res, string(tmp))
+		return
+	}
+	if left>n || right > n || right > left{
+		return
+	}
+
+	dfs22(left+1,right,n,res,append(tmp, '('))
+	dfs22(left,right+1,n,res,append(tmp, ')'))
+
+}
