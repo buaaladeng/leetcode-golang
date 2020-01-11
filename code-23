@@ -1,0 +1,73 @@
+1,暴力法，将所有的数据都移动到一个数组中，进行排序，再生成链表
+
+func mergeKLists(lists []*ListNode) *ListNode {
+	array := make([]int,0)
+	for _,onelist := range lists{
+		for onelist != nil{
+			array = append(array, onelist.Val)
+			onelist = onelist.Next
+		}
+	}
+	//fmt.Println(array)
+	sort.Ints(array)
+	res := new(ListNode)
+	tmp := res
+	for i:=0;i<len(array);i++{
+		one := new(ListNode)
+		one.Val = array[i]
+		tmp.Next = one
+		tmp = tmp.Next
+	}
+	return res.Next
+}
+
+2，归并排序
+func mergeKLists(lists []*ListNode) *ListNode {
+	n := len(lists)
+	if n == 0{
+		return nil
+	}
+	if n == 1 {
+		return lists[0]
+	}
+	return sortList(lists,0,n-1)
+
+}
+
+func sortList(lists []*ListNode,start,end int)*ListNode{
+	if start > end{
+		return nil
+	}
+	if start == end{
+		return lists[start]
+	}
+	
+	mid := start + (end-start)/2
+	return mergeTwoLists(sortList(lists,start,mid),sortList(lists,mid+1,end))
+	
+}
+
+func mergeTwoLists(list1, list2 *ListNode)*ListNode{
+	if list1 == nil && list2 == nil{
+		return nil
+	}
+	dump := new(ListNode)
+	head := dump
+	for list1!= nil && list2 != nil{
+		if list1.Val < list2.Val{
+			head.Next = list1
+			list1 = list1.Next
+		}else {
+			head.Next = list2
+			list2 = list2.Next
+		}
+		head = head.Next
+	}
+	if list1 != nil{
+		head.Next = list1
+	}
+	if list2 != nil{
+		head.Next = list2
+	}
+	return dump.Next
+}
