@@ -1,0 +1,53 @@
+func fourSum(nums []int, target int) [][]int {
+	res := make([][]int,0)
+	n:= len(nums)
+	if n < 4 {
+		return res
+	}
+	sort.Ints(nums)
+	for i:=0;i<n-3;i++{
+		if i>0 && nums[i] == nums[i-1]{
+			continue
+		}
+		for j:=i+1;j<n-2;j++{
+			if j>i+1 && nums[j] == nums[j-1]{
+				continue
+			}
+			start := j+1
+			end := n-1
+			for start < end {
+				num := nums[i] + nums[j] + nums[start] + nums[end]
+				if num == target{
+					tmp := make([]int,4)
+					tmp[0]=nums[i]
+					tmp[1]=nums[j]
+					tmp[2]=nums[start]
+					tmp[3]=nums[end]
+					res = append(res,tmp)
+					start++
+					end--
+					for start < end && nums[start] == nums[start-1]{
+						start++
+					}
+					for start < end && nums[end] == nums[end+1]{
+						end--
+					}
+				}else if num < target{
+					start++
+					for start < end && nums[start] == nums[start-1]{
+						start++
+					}
+				}else {
+					end--
+					for start < end && nums[end] == nums[end+1]{
+						end--
+					}
+				}
+			}
+		}
+
+
+	}
+	return res
+
+}
