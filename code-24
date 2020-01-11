@@ -1,0 +1,35 @@
+func swapPairs(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil{
+		return head
+	}
+	dump := new(ListNode)
+	dump.Next = head
+	res := dump
+	for res.Next != nil && res.Next.Next!= nil{
+		p := res.Next
+		q := res.Next.Next
+		res.Next = q
+		p.Next = q.Next
+		q.Next = p
+		res = p
+	}
+	return dump.Next
+}
+
+
+
+/**
+递归写法
+*/
+func swapPairs(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil{
+		return head
+	}
+	p := head
+	q := head.Next
+	tmp := q.Next
+	
+	q.Next = p
+	p.Next = swapPairs(tmp)
+	return q
+}
