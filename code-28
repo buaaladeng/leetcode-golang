@@ -1,0 +1,31 @@
+// 字符串匹配
+
+func strStr(haystack string, needle string) int {
+	hlen, nlen := len(haystack), len(needle)
+	// 当hlen等于nlen的时候，需要i == 0
+	for i := 0; i <= hlen-nlen; i++ {
+		if haystack[i:i+nlen] == needle {
+			return i
+		}
+	}
+
+	return -1
+}
+
+// 暴力匹配
+func strStr(haystack string, needle string) int {
+	n1 := len(haystack)
+	n2 := len(needle)
+	for i:=0;i<n1-n2+1;i++{
+		j:=0
+		for ;j<n2;j++{
+			if haystack[i+j] != needle[j]{
+				break
+			}
+		}
+		if j>=n2{
+			return i
+		}
+	}
+	return -1
+}
