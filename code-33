@@ -10,7 +10,7 @@ func search(nums []int, target int) int {
 		if nums[mid]==target{
 			return mid
 		}
-		if nums[mid]>nums[start]{
+		if nums[mid]>=nums[start]{
 			if nums[start] <= target && target<nums[mid]{
 				end = mid-1
 			}else {
