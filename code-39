@@ -1,0 +1,26 @@
+/**
+code-39
+ */
+func combinationSum(candidates []int, target int) [][]int {
+	res := make([][]int,0)
+	tmp := make([]int,0)
+	dfs39(&res,tmp,candidates,target,0)
+	return res
+}
+
+func dfs39(res *[][]int,tmp []int,candidates []int,target,start int){
+	if target < 0 {
+		return
+	}
+	if target == 0{
+		one := make([]int,len(tmp))
+		copy(one,tmp)
+		*res = append(*res, one)
+		return
+	}
+	for i:=start;i<len(candidates);i++{
+		tmp = append(tmp,candidates[i])
+		dfs39(res,tmp,candidates,target-candidates[i],i)
+		tmp = tmp[:len(tmp)-1]
+	}
+}
