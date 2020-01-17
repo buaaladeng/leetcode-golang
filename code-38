@@ -24,3 +24,35 @@ func countAndSay(n int) string {
 	res = res + (strconv.Itoa(count) + string(array[start]))
 	return res
 }
+
+
+func countAndSay(n int) string {
+	buf := []byte{'1'}
+
+	for n > 1 {
+		buf = say(buf)
+		n--
+	}
+
+	return string(buf)
+}
+
+func say(buf []byte) []byte {
+	res := make([]byte, 0)
+
+	i, j := 0, 1
+	for i < len(buf) {
+		// 利用 j ，找到下一个不同的元素
+		for j < len(buf) && buf[j] == buf[i] {
+			j++
+		}
+
+		// res 中 res[i] 表示 res[i+1] 的个数，i 为0,2,4,6,...
+		res = append(res, byte(j-i+'0'), buf[i])
+
+		// 移动 i 到 j
+		i = j
+	}
+
+	return res
+}
