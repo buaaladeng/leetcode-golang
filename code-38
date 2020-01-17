@@ -1,0 +1,26 @@
+递归算法
+func countAndSay(n int) string {
+	res := ""
+	if n == 1{
+		return "1"
+	}
+	tmp := countAndSay(n-1)
+	array := []byte(tmp)
+	length := len(tmp)
+	start := 0
+	end := length-1
+	count := 1
+	for start<end{
+		if array[start] == array[start+1]{
+			count++
+			start++
+		}else {
+			num := strconv.Itoa(count)
+			res = res + (num + string(array[start]))
+			count = 1
+			start++
+		}
+	}
+	res = res + (strconv.Itoa(count) + string(array[start]))
+	return res
+}
