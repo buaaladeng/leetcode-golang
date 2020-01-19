@@ -1,0 +1,29 @@
+/**
+code-40
+ */
+func combinationSum2(candidates []int, target int) [][]int {
+	res := make([][]int,0)
+	tmp := make([]int,0)
+	sort.Ints(candidates)
+	dfs40(&res,tmp,candidates,target,0)
+	return res
+}
+func dfs40(res *[][]int,tmp []int,candidates []int,target,start int){
+	if target < 0 {
+		return
+	}
+	if target == 0{
+		one := make([]int,len(tmp))
+		copy(one,tmp)
+		*res = append(*res, one)
+		return
+	}
+	for i:=start;i<len(candidates);i++{
+		if i>start && candidates[i]== candidates[i-1]{
+			continue
+		}
+		tmp = append(tmp,candidates[i])
+		dfs40(res,tmp,candidates,target-candidates[i],i+1)
+		tmp = tmp[:len(tmp)-1]
+	}
+}
