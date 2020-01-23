@@ -1,0 +1,29 @@
+func permute(nums []int) [][]int {
+	n := len(nums)
+	if n == 0{
+		return nil
+	}
+	res := make([][]int,0)
+	tmp := make([]int,0)
+	visit := make([]bool,n)
+	dfs46(nums,&res,tmp,visit)
+	return res
+}
+
+func dfs46(nums []int,res *[][]int,tmp []int,visit []bool){
+	n:=len(nums)
+	if len(tmp) == n{
+		*res = append(*res,tmp)
+		return
+	}
+	for i:=0;i<n;i++{
+		if visit[i] == true{
+			continue
+		}
+		tmp = append(tmp,nums[i])
+		visit[i] = true
+		dfs46(nums,res,tmp,visit)
+		tmp = tmp[:len(tmp)-1]
+		visit[i] = false
+	}
+}
