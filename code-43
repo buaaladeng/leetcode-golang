@@ -1,0 +1,27 @@
+
+func multiply(num1 string, num2 string) string {
+	if num1 == "0" || num2 == "0"{
+		return "0"
+	}
+	bsi := []byte(num1)
+	bsj := []byte(num2)
+	n1 := len(num1)
+	n2 := len(num2)
+	tmp:=make([]int,n1+n2)
+	for i:=n1-1;i>=0;i--{
+		for j:=n2-1;j>=0;j--{
+			 sum := tmp[i + j + 1] + int(bsi[i] - '0') * int(bsj[j] - '0')
+			tmp[i + j + 1] = sum %10
+			tmp[i+j] += sum/10
+		}
+	}
+	if tmp[0] == 0{
+		tmp = tmp[1:]
+	}
+	res := make([]byte,len(tmp))
+	for i:=0;i<len(tmp);i++{
+		res[i] = '0' + byte(tmp[i])
+	}
+	return string(res)
+
+}
