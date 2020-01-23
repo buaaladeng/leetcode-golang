@@ -1,0 +1,32 @@
+func permuteUnique(nums []int) [][]int {
+	n := len(nums)
+	if n == 0{
+		return nil
+	}
+	res := make([][]int,0)
+	tmp := make([]int,0)
+	visit := make([]bool,n)
+	sort.Ints(nums)
+	dfs47(nums,&res,tmp,visit)
+	return res
+}
+func dfs47(nums []int,res *[][]int,tmp []int,visit []bool){
+	n:=len(nums)
+	if len(tmp) == n{
+		c:=make([]int,len(tmp))
+		copy(c,tmp)
+		*res = append(*res,c)
+		return
+	}
+
+	for i:=0;i<n;i++{
+		if visit[i]|| (i>0 && nums[i]== nums[i-1] && visit[i-1] == false){
+			continue
+		}
+		tmp = append(tmp,nums[i])
+		visit[i] = true
+		dfs47(nums,res,tmp,visit)
+		tmp = tmp[:len(tmp)-1]
+		visit[i] = false
+	}
+}
