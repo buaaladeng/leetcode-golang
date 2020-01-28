@@ -1,0 +1,35 @@
+// 直接进行归并
+func insert(intervals [][]int, newInterval []int) [][]int {
+	res := make([][]int,0)
+	for _,inter := range intervals{
+		// 新的在后面，没交集
+		if inter[1]<newInterval[0]{
+			res = append(res,inter)
+		}else if newInterval[1]<inter[0]{
+			res = append(res,newInterval)
+			newInterval = inter
+		}else {
+			newInterval[0] = minInt(inter[0],newInterval[0])
+			newInterval[1] = maxInt(inter[1],newInterval[1])
+		}
+	}
+	res = append(res,newInterval)
+	return res
+}
+
+
+func maxInt(a,b int)int{
+	if a>b{
+		return a
+	}else {
+		return b
+	}
+}
+
+func minInt(a,b int)int{
+	if a>b{
+		return b
+	}else {
+		return a
+	}
+}
