@@ -1,0 +1,39 @@
+//传统方法
+func addBinary(a string, b string) string {
+	array_a := []byte(a)
+	array_b := []byte(b)
+	na := len(array_a)
+	nb := len(array_b)
+	res := make([]byte,0)
+	c := 0
+	i:= na-1;
+	j:=nb-1
+	for i>=0 || j >=0{
+		one := 0
+		if i>=0{
+			one = int(array_a[i] - '0')
+			i--
+		}
+		two := 0
+		if j>=0{
+			two = int(array_b[j] - '0')
+			j--
+		}
+		sum := one + two + c
+		c = sum /2
+		sum %=2
+		res = append(res,byte(sum) + '0')
+		fmt.Println(i)
+		fmt.Println(j)
+	}
+	if c>0{
+		res = append(res,'1')
+	}
+	for i=0;i<len(res)/2;i++{
+		res[i],res[len(res)-1-i] = res[len(res)-1-i],res[i]
+	}
+	return string(res)
+}
+
+
+
