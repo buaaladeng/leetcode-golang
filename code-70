@@ -1,0 +1,13 @@
+//
+func climbStairs(n int) int {
+	pre := 1
+	now := 1
+	res := 1
+	for i:=1;i<n;i++{
+		res = pre + now
+		pre = now
+		now = res
+	}
+	return res
+}
+
