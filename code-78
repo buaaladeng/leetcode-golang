@@ -36,3 +36,25 @@ func subsets(nums []int) [][]int {
 	return result
 
 }
+
+func subsets(nums []int) [][]int {
+	res := make([][]int,0)
+	n := len(nums)
+	if n == 0{
+		return res
+	}
+	sort.Ints(nums)
+	tmp := make([]int,0)
+	dfs78(nums,&res,tmp,0)
+	return res
+}
+func dfs78(nums []int,res *[][]int,tmp []int,start int)  {
+	one := make([]int,len(tmp))
+	copy(one,tmp)
+	*res = append(*res,one)
+	for i:=start;i<len(nums);i++{
+		tmp = append(tmp,nums[i])
+		dfs78(nums,res,tmp,i+1)
+		tmp = tmp[:len(tmp)-1]
+	}
+}
