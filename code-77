@@ -1,0 +1,21 @@
+
+func combine(n int, k int) [][]int {
+	res := make([][]int,0)
+	tmp:=make([]int,0)
+	dfs77(n,k,&res,tmp,1)
+	return res
+}
+
+func dfs77(n ,k int, res *[][]int, tmp []int,start int){
+	if len(tmp) == k{
+		one := make([]int,k)
+		copy(one,tmp)
+		*res = append(*res,one)
+		return
+	}
+	for i:=start;i<n+1;i++{
+		tmp = append(tmp,i)
+		dfs77(n,k,res,tmp,i+1)
+		tmp = tmp[:len(tmp)-1]
+	}
+}
