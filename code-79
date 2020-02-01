@@ -1,0 +1,40 @@
+func exist(board [][]byte, word string) bool {
+	n := len(board)
+	if n == 0 {
+		return false
+	}
+	m := len(board[0])
+	if m == 0 {
+		return false
+	}
+	if len(word) == 0{
+		return false
+	}
+	for i:=0;i<n;i++{
+		for j:=0;j<m;j++{
+			if dfs79(board,i,j,word,0){
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func dfs79(board [][]byte,i int,j int,word string,start int)bool{
+	row := len(board)
+	col := len(board[0])
+	if start == len(word){
+		return true
+	}
+	if i<0 || i>=row || j<0 || j>= col|| board[i][j] != word[start]{
+		return false
+	}
+	tmp:=board[i][j]
+	board[i][j] = 0
+	if dfs79(board,i+1,j,word,start+1) || dfs79(board,i-1,j,word,start+1) ||
+		dfs79(board,i,j+1,word,start+1) || dfs79(board,i,j-1,word,start+1){
+			return true
+	}
+	board[i][j] = tmp
+	return false
+}
