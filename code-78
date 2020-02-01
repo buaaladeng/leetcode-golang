@@ -1,0 +1,38 @@
+
+func subsets(nums []int) [][]int {
+	res := make([][]int,0)
+	n := len(nums)
+	if n == 0{
+		return res
+	}
+	if n == 1{
+		res = append(res,nums)
+		res= append(res,make([]int,0))
+		return res
+	}
+	one := nums[n-1]
+	nums = nums[:n-1]
+	sub := subsets(nums)
+	for _,tmp := range sub{
+		if len(tmp)>0{
+			res = append(res,tmp)
+		}
+		tmp = append(tmp,one)
+		one := make([]int,len(tmp))
+		copy(one,tmp)
+		res = append(res,one)
+	}
+	res = append(res,make([]int,0))
+	return res
+}
+
+func subsets(nums []int) [][]int {
+	result := make([][]int,1)
+	for _,n :=range nums{
+		for _,r:= range result{
+			result = append(result, append([]int{n}, r...))
+		}
+	}
+	return result
+
+}
