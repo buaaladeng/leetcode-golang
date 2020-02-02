@@ -1,0 +1,59 @@
+//利用hash表，通过2次遍历进行处理
+func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil{
+		return head
+	}
+	dummp := new(ListNode)
+	dummp.Next = head
+	hash := make(map[int]int,0)
+	one := dummp
+	two := dummp
+	for one.Next!=nil {
+		tmp := one.Next
+		if hash[tmp.Val]>0{
+			two.Next = tmp.Next
+		}else {
+			one = one.Next
+			two = two.Next
+		}
+		hash[tmp.Val] += 1
+		
+	}
+	one = dummp.Next
+	two = dummp
+	for one!=nil{
+		if hash[one.Val]>1{
+			two.Next = one.Next
+		}else {
+			two = two.Next
+		}
+		one = one.Next
+		
+	}
+	return dummp.Next
+}
+
+//快慢指针一次遍历
+func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil{
+		return head
+	}
+	res := new(ListNode)
+	res.Next = head
+
+	slow := res
+	fast := res.Next
+
+	for fast!= nil{
+		for fast.Next != nil && slow.Next.Val == fast.Next.Val{
+			fast = fast.Next
+		}
+		if slow.Next == fast{
+			slow = fast
+		}else {
+			slow.Next = fast.Next
+		}
+		fast = fast.Next
+	}
+	return res.Next
+}
