@@ -1,0 +1,18 @@
+func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil{
+		return head
+	}
+	dummp := new(ListNode)
+	dummp.Next = head
+	fast := dummp.Next
+	slow := dummp
+	for fast!=nil{
+		for fast.Next != nil && slow.Next.Val == fast.Next.Val{
+			fast = fast.Next
+		}
+		slow.Next = fast
+		slow = slow.Next
+		fast = fast.Next
+	}
+	return dummp.Next
+}
