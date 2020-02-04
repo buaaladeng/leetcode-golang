@@ -1,0 +1,22 @@
+func partition(head *ListNode, x int) *ListNode {
+	if head == nil || head.Next == nil{
+		return head
+	}
+	big := new(ListNode)
+	small := new(ListNode)
+	fast := big
+	slow := small
+	for head!=nil{
+		if head.Val >= x{
+			fast.Next = head
+			fast = fast.Next
+		}else {
+			slow.Next = head
+			slow = slow.Next
+		}
+		head = head.Next
+	}
+	slow.Next = big.Next
+	fast.Next = nil
+	return small.Next
+}
