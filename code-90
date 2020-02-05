@@ -1,0 +1,24 @@
+func subsetsWithDup(nums []int) [][]int {
+	res :=make([][]int,0)
+	n := len(nums)
+	if n == 0{
+		return res
+	}
+	tmp := make([]int,0)
+	sort.Ints(nums)
+	dfs90(&res,tmp,nums,0)
+	return res
+}
+func dfs90(res *[][]int,tmp []int,nums []int,start int){
+	one := make([]int,len(tmp))
+	copy(one,tmp)
+	*res = append(*res,one)
+	for i:=start;i<len(nums);i++{
+		if i >start && nums[i] == nums[i-1]{
+			continue
+		}
+		tmp = append(tmp,nums[i])
+		dfs90(res,tmp,nums,i+1)
+		tmp = tmp[:len(tmp)-1]
+	}
+}
