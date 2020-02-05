@@ -1,0 +1,23 @@
+func reverseBetween(head *ListNode, m int, n int) *ListNode {
+	if head == nil || head.Next == nil{
+		return head
+	}
+	res := new(ListNode)
+	res.Next = head
+	
+	slow := res
+	for i:=0;i<m-1;i++{
+		slow = slow.Next
+	}
+	start := slow.Next
+	end := start.Next
+	for i:=0;i<n-m;i++{
+		start.Next = end.Next
+		end.Next = slow.Next
+		slow.Next = end
+		end = start.Next
+		
+	}
+	return res.Next
+	
+}
