@@ -1,0 +1,33 @@
+//递归
+func maxDepth(root *TreeNode) int {
+	if root == nil{
+		return 0
+	}
+	return maxInt(maxDepth(root.Left),maxDepth(root.Right)) +1
+}
+
+//迭代
+
+func maxDepth(root *TreeNode) int {
+	if root == nil{
+		return 0
+	}
+	stack := make([]*TreeNode,0)
+	stack = append(stack,root)
+	res := 0
+	for len(stack)>0{
+		n := len(stack)
+		for i:=0;i<n;i++{
+			one := stack[i]
+			if one.Left != nil {
+				stack = append(stack,one.Left)
+			}
+			if one.Right!= nil{
+				stack = append(stack,one.Right)
+			}
+		}
+		stack = stack[n:]
+		res++
+	}
+	return res
+}
