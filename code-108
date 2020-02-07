@@ -1,0 +1,13 @@
+// 递归
+
+func sortedArrayToBST(nums []int) *TreeNode {
+	root := new(TreeNode)
+	n := len(nums)
+	if n == 0 {
+		return nil
+	}
+	root.Val = nums[n/2]
+	root.Left = sortedArrayToBST(nums[:n/2])
+	root.Right = sortedArrayToBST(nums[n/2+1:])
+	return root
+}
