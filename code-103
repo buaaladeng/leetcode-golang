@@ -1,0 +1,32 @@
+func zigzagLevelOrder(root *TreeNode) [][]int {
+	res := make([][]int,0)
+	if root == nil{
+		return res
+	}
+	stack := make([]*TreeNode,0)
+	stack = append(stack,root)
+	reverse := false
+	for len(stack)>0{
+		n := len(stack)
+		tmp := make([]int,n)
+		for i:=0;i<n;i++{
+			one := stack[i]
+			if one.Left != nil {
+				stack = append(stack,one.Left)
+			}
+			if one.Right!= nil{
+				stack = append(stack,one.Right)
+			}
+			if reverse{
+				tmp[n-i-i] = one.Val
+			}else {
+				tmp[i]=one.Val
+			}
+			
+		}
+		stack = stack[n:]
+		res = append(res,tmp)
+		reverse = !reverse
+	}
+	return res
+}
