@@ -1,0 +1,43 @@
+func buildTree(preorder []int, inorder []int) *TreeNode {
+	root := new(TreeNode)
+	m := len(preorder)
+	n := len(inorder)
+	if m == 0 && n == 0{
+		return nil
+	}
+	root.Val = preorder[0]
+	index := 0
+	for i:=0;i<n;i++{
+		if inorder[i] == preorder[0]{
+			index = i
+			break
+		}
+	}
+	root.Left = buildTree(preorder[1:index+1],inorder[:index])
+	root.Right = buildTree(preorder[index+1:],inorder[index+1:])
+	return root
+}
+
+
+func buildTree(preorder []int, inorder []int) *TreeNode {
+	result := buildOneTree(preorder,0,len(preorder)-1,inorder,0,len(inorder)-1)
+	return result
+}
+
+func buildOneTree(preorder []int,pl int,pr int,inorder []int,il int,ir int) *TreeNode {
+	if pl>pr || il>ir{
+		return nil
+	}
+	mid := preorder[pl]
+	root := new(TreeNode)
+	root.Val = mid
+	midIndex := il
+	for index,val:=range inorder{
+		if val == mid{
+			midIndex = index
+		}
+	}
+	root.Left = buildOneTree(preorder,pl+1,pl+midIndex-il,inorder,il,midIndex-1)
+	root.Right = buildOneTree(preorder,pl+midIndex-il+1,pr,inorder,midIndex+1,ir)
+	return root
+}
