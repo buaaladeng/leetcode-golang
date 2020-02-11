@@ -1,0 +1,25 @@
+func pathSum(root *TreeNode, sum int) [][]int {
+	res := make([][]int,0)
+	if root == nil{
+		return res
+	}
+	tmp := make([]int,0)
+	dfs113(root,sum,&res,tmp)
+	return res
+}
+
+func dfs113(root *TreeNode,sum int, res *[][]int, tmp []int){
+	if root == nil{
+		return
+	}
+	tmp = append(tmp,root.Val)
+	if sum == root.Val && root.Right == nil && root.Left == nil{
+		one := make([]int,len(tmp))
+		copy(one,tmp)
+		*res = append(*res,one)
+	}else {
+		dfs113(root.Left,sum-root.Val,res,tmp)
+		dfs113(root.Right,sum-root.Val,res,tmp)
+	}
+	tmp = tmp[:len(tmp)-1]
+}
