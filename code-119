@@ -1,0 +1,59 @@
+func getRow(rowIndex int) []int {
+	if rowIndex == 0{
+		return []int{1}
+	}
+	if rowIndex == 1{
+		return []int{1,1}
+	}
+	pre := make([]int,rowIndex+1)
+	res := make([]int,rowIndex+1)
+	pre[0]=1
+	pre[1]=1
+	for i:=1;i<rowIndex;i++{
+	  res[0] = 1
+	  for j:=1;j<=i;j++{
+	  	res[j] = pre[j-1] + pre[j]
+	  }
+	  res[i+1] = 1
+	  for k:=0;k<len(res);k++{
+	  	pre[k] = res[k]
+	  }
+	}
+	return res
+}
+
+
+func getRow(rowIndex int) []int {
+	res := make([]int, 1, rowIndex+1)
+	res[0] = 1
+	if rowIndex == 0 {
+		return res
+	}
+
+	for i := 0; i < rowIndex; i++ {
+		res = append(res, 1)
+		for j := len(res) - 2; j > 0; j-- {
+			res[j] += res[j-1]
+		}
+	}
+
+	return res
+}
+
+
+
+func getRow(rowIndex int) []int {
+	res := make([]int,rowIndex+1)
+	
+	for i:=0;i<=rowIndex;i++{
+		res[i] = 1
+		tmp := res[0]
+		cur := res[0]
+		for j:=1;j<i;j++{
+			cur = res[j]
+			res[j] += tmp
+			tmp = cur
+		}
+	}
+	return res
+}
