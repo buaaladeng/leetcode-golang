@@ -22,7 +22,7 @@ func getRow(rowIndex int) []int {
 	return res
 }
 
-
+//从后向前动态规划
 func getRow(rowIndex int) []int {
 	res := make([]int, 1, rowIndex+1)
 	res[0] = 1
