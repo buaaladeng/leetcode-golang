@@ -1,0 +1,48 @@
+// 递归
+func sumNumbers(root *TreeNode) int {
+	if root == nil{
+		return 0
+	}
+	nums := make([]int,0)
+	stack := make([]*TreeNode,0)
+	res := 0
+	stack = append(stack,root)
+	nums = append(nums,root.Val)
+	for len(stack)>0{
+		n := len(stack)
+		for i:=0;i<n;i++{
+			one := stack[0]
+			stack = stack[1:]
+			num := nums[0]
+			nums = nums[1:]
+			if one.Left==nil && one.Right==nil{
+				res += num
+			}
+			if one.Left!=nil {
+				nums = append(nums,num*10 + one.Left.Val)
+				stack = append(stack,one.Left)
+			}
+			if one.Right!=nil{
+				nums = append(nums,num*10 + one.Right.Val)
+				stack = append(stack,one.Right)
+			}
+            
+		}
+	}
+	return res
+}
+
+// 迭代
+func sumNumbers(root *TreeNode) int {
+	return sum(root,0)
+
+}
+func sum(root *TreeNode,s int)int{
+	if root == nil{
+		return 0
+	}
+	if root.Right == nil && root.Left == nil{
+		return s * 10 + root.Val
+	}
+	return sum(root.Left,s * 10 + root.Val) + sum(root.Right,s * 10 + root.Val)
+}
