@@ -1,0 +1,40 @@
+func partition(s string) [][]string {
+	res := make([][]string,0)
+	n := len(s)
+	if n == 0{
+		return res
+	}
+	tmp := make([]string,0)
+	dfs131(s,&res,tmp,0)
+	return res
+}
+func dfs131(s string,res *[][]string,tmp []string,start int){
+	if start == len(s){
+		one := make([]string,len(tmp))
+		copy(one,tmp)
+		*res = append(*res,one)
+		return
+	}
+	for i:=start;i<len(s);i++{
+		if ishuiwen(string(s[start:i+1])){
+			tmp = append(tmp,string(s[start:i+1]))
+			dfs131(s,res,tmp,i+1)
+			tmp = tmp[:len(tmp)-1]
+		}
+	}
+
+}
+
+func ishuiwen(s string)bool{
+	n:=len(s)
+	i:=0
+	j:=n-1
+	for i<j{
+		if s[i]!=s[j]{
+			return false
+		}
+		i++
+		j--
+	}
+	return true
+}
