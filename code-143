@@ -1,0 +1,29 @@
+func reorderList(head *ListNode)  {
+	if head == nil || head.Next == nil{
+		return
+	}
+	slow := head
+	fast := head
+	for fast.Next!=nil && fast.Next.Next!=nil{
+		slow = slow.Next
+		fast= fast.Next.Next
+	}
+	mid := slow
+	right := mid.Next
+	for right!=nil{
+		next := right.Next
+		right.Next = mid
+		mid = right
+		right = next
+	}
+	end := mid
+	for head != end{
+		p1next := head.Next
+		p2next := end.Next
+		head.Next = end
+		end.Next = p1next
+		head = p1next
+		end = p2next
+	}
+	end.Next = nil
+}
