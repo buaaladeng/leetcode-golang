@@ -1,0 +1,20 @@
+func insertionSortList(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil{
+		return head
+	}
+	dummp := new(ListNode)
+	for head!=nil{
+		next := head.Next
+		for cur := dummp;cur!=nil;cur = cur.Next{
+			if cur.Next!=nil && cur.Next.Val < head.Val{
+				continue
+			}
+			head.Next = cur.Next
+			cur.Next = head
+			break
+		}
+		head = next
+	}
+
+	return dummp.Next
+}
