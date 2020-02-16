@@ -1,0 +1,22 @@
+func detectCycle(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil{
+		return nil
+	}
+	slow := head
+	fast := head
+	for fast!=nil && fast.Next != nil{
+		slow = slow.Next
+		fast = fast.Next.Next
+        if fast == slow{
+			break
+		}
+	}
+	if slow!=fast{
+		return nil
+	}
+	for head!=slow{
+		slow = slow.Next
+		head = head.Next
+	}
+	return slow
+}
