@@ -1,0 +1,16 @@
+func convertToTitle(n int) string {
+	res := make([]byte,0)
+	for n > 0 {
+		n--
+		res = append(res,byte(n%26) + 'A')
+		n = n / 26
+	}
+	if len(res) >0 {
+		n--
+	}
+
+	for i:=0;i<len(res)/2;i++{
+		res[i],res[len(res)-1-i] = res[len(res)-1-i],res[i]
+	}
+	return string(res)
+}
