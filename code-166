@@ -1,0 +1,106 @@
+func fractionToDecimal(numerator int, denominator int) string {
+	res := ""
+	num := 0
+	neg := false
+	if numerator * denominator <0{
+		neg = true
+	}
+	numerator= absInt(numerator)
+	denominator =absInt(denominator)
+	hashmap := make(map[int]int,0)
+	num = numerator/denominator
+	numerator = numerator%denominator
+	cycle := false
+	stack := make([]int,0)
+	start :=0
+	end :=1
+	for numerator > 0 {
+		if hashmap[numerator] > 0 {
+			cycle = true
+			start = hashmap[numerator]-1
+			break
+		}
+		hashmap[numerator] = len(stack)+1
+		numerator = numerator * 10
+		if numerator >= denominator{
+			one := numerator/denominator
+			stack = append(stack,one)
+			end++
+			numerator = numerator%denominator
+		} else {
+			stack = append(stack,0)
+			end++
+		}
+	}
+	res += strconv.Itoa(num)
+	if len(stack)>0{
+		res += "."
+	}
+	if !cycle{
+		for i:=0;i<len(stack);i++{
+			res += strconv.Itoa(stack[i])
+		}
+	} else {
+		for i:=0;i<start;i++{
+			res += strconv.Itoa(stack[i])
+		}
+		res += "("
+		for i:=start;i<end-1;i++{
+			res += strconv.Itoa(stack[i])
+		}
+		res += ")"
+	}
+	if neg{
+		res = "-" + res
+	}
+	return res
+}
+
+
+
+func fractionToDecimal(numerator int, denominator int) string {
+
+	res :=""
+	if numerator == 0 || denominator == 0{
+		return "0"
+	}
+	neg := true
+	if numerator > 0 && denominator > 0 || (numerator < 0 && denominator < 0){
+		neg = false
+	}
+	if neg{
+		res += "-"
+	}
+	numerator = absInt(numerator)
+	denominator = absInt(denominator)
+	div := numerator/denominator
+	res += strconv.Itoa(div)
+	left := numerator - div * denominator
+	if left == 0{
+		return res
+	}
+	resmap := make(map[int]int)
+	num := make([]byte,0)
+	num = append(num,'0')
+	num = append(num,'.')
+	index := 2
+	for left > 0{
+		if val,ok := resmap[left];ok{
+			res += string(num[1:val])
+			res += "("
+			res += string(num[val:])
+			res += ")"
+			return res
+		}
+		resmap[left] = index
+		left = left * 10
+		div = left/denominator
+		num = append(num,byte(div)+'0')
+		index++
+		left = left - div * denominator
+		if left == 0{
+			res += string(num[1:index])
+		}
+	}
+	return res
+}
