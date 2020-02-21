@@ -14,3 +14,23 @@ func convertToTitle(n int) string {
 	}
 	return string(res)
 }
+
+
+
+func convertToTitle(n int) string {
+	res := make([]byte,0)
+	for n > 0 {
+		if n%26 == 0{
+			res = append(res,'Z')
+			n--
+		}else {
+			res = append(res,byte(n%26-1) + 'A')
+		}
+		
+		n = n / 26
+	}
+	for i:=0;i<len(res)/2;i++{
+		res[i],res[len(res)-1-i] = res[len(res)-1-i],res[i]
+	}
+	return string(res)
+}
