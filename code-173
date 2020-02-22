@@ -1,0 +1,83 @@
+// 两种思路
+1，利用栈维护搜索树的中序遍历值，进行值处理
+2，利用栈维护搜索树的节点，进行节点处理
+
+
+type BSTIterator struct {
+	stack []int
+}
+
+func Constructor(root *TreeNode) BSTIterator {
+	tmp := make([]*TreeNode,0)
+	num := make([]int,0)
+	for root != nil || len(tmp)>0{
+		for root!= nil{
+			tmp = append(tmp,root)
+			root = root.Left
+		}
+		root = tmp[len(tmp)-1]
+        tmp=tmp[:len(tmp)-1]
+		num = append(num,root.Val)
+		root = root.Right
+	}
+	res := BSTIterator{stack:num}
+	return res
+}
+
+
+/** @return the next smallest number */
+func (this *BSTIterator) Next() int {
+	res := this.stack[0]
+	this.stack =  this.stack[1:]
+	return res
+}
+
+
+/** @return whether we have a next smallest number */
+func (this *BSTIterator) HasNext() bool {
+	return len(this.stack)>0
+}
+
+
+type BSTIterator struct {
+	list []*TreeNode
+	cur  *TreeNode
+}
+
+
+func Constructor(root *TreeNode) BSTIterator {
+	return BSTIterator{
+		list: make([]*TreeNode,0),
+		cur : root,
+	}
+}
+
+
+/** @return the next smallest number */
+func (this *BSTIterator) Next() int {
+	res := -1
+	for this.HasNext(){
+
+		if this.cur!=nil{
+			this.list = append(this.list,this.cur)
+			this.cur = this.cur.Left
+		}else {
+			this.cur = this.list[len(this.list)-1]
+			this.list = this.list[:len(this.list)-1]
+			res = this.cur.Val
+			this.cur = this.cur.Right
+			break
+		}
+	}
+	return res
+}
+
+
+/** @return whether we have a next smallest number */
+func (this *BSTIterator) HasNext() bool {
+		return len(this.list) > 0 || this.cur != nil
+}
+
+
+
+
