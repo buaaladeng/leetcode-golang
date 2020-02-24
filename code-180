@@ -1,0 +1,3 @@
+SELECT distinct a.Num as ConsecutiveNums FROM
+Logs as a, Logs as b, Logs  as c 
+where a.Id = b.Id+1 and a.Id=c.Id+2 and a.Num = b.Num and a.Num=c.Num
