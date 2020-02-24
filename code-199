@@ -1,0 +1,28 @@
+func rightSideView(root *TreeNode) []int {
+	stack := make([]*TreeNode,0)
+	res := make([]int,0)
+    if root == nil{
+        return res
+    }
+	stack = append(stack,root)
+	for len(stack) > 0 {
+		num := len(stack)
+		max := 0
+		for num>0{
+			one := stack[0]
+			stack = stack[1:]
+			if num == 1{
+				max = one.Val
+			}
+			if one.Left!=nil{
+				stack = append(stack,one.Left)
+			}
+			if one.Right!=nil{
+				stack = append(stack,one.Right)
+			}
+			num--
+		}
+		res = append(res,max)
+	}
+	return res
+}
