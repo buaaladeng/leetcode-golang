@@ -1,0 +1,16 @@
+delete 
+    p1 
+from 
+    Person p1,Person p2 
+where 
+    p1.Email=p2.Email and p1.Id>p2.Id;
+    
+DELETE from Person 
+Where Id not in (
+    Select Id 
+    From(
+    Select MIN(Id) as id
+    From Person 
+    Group by Email
+   ) t
+)
