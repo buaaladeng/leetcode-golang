@@ -1,0 +1,16 @@
+awk '{for(i=1;i<=NF;i++){raw[i]=raw[i]?raw[i]" "$i:$i}}END{for(j=1;j<=length(raw);j++){print raw[j]}}' file.txt
+
+awk '{
+    for (i=1;i<=NF;i++){
+        if (NR==1){
+            res[i]=$i
+        }
+        else{
+            res[i]=res[i]" "$i
+        }
+    }
+}END{
+    for(j=1;j<=NF;j++){
+        print res[j]
+    }
+}' file.txt
