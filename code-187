@@ -1,0 +1,39 @@
+1，利用hash表去做
+
+func findRepeatedDnaSequences(s string) []string {
+	sarray := []byte(s)
+	n := len(sarray)
+	res := make([]string,0)
+	hashmap := make(map[string]int,0)
+	for i:=0;i<n-9;i++{
+		str := string(sarray[i:i+10])
+		if hashmap[str] == 1{
+			res = append(res,str)
+			hashmap[str] += 1
+		} else {
+			hashmap[str] += 1
+		}
+	}
+	return res
+}
+
+
+
+func findRepeatedDnaSequences(s string) []string {
+	res := make([]string,0)
+	n :=len(s)
+	if n <11{
+		return res
+	}
+	strmap := make(map[string]int)
+	for i:=0;i<n-9;i++{
+		substr := string(s[i:i+10])
+		strmap[substr] += 1
+		if num,ok := strmap[substr];ok{
+			if num ==2{
+				res = append(res,substr)
+			}
+		}
+	}
+	return res
+}
