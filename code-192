@@ -1,0 +1,9 @@
+cat words.txt |awk '{for(i=1;i<=NF;i++){a[$i]++}} END{for(j in a)print j " " a[j]}' |sort -rnk 2
+
+
+
+2,找日志系统中top 10 ip
+
+awk '{ print $1}' | sort | uniq -c | sort -n | tail -n 100
+
+awk '{ print $1}' | sort | uniq -c | sort -nr | head -n 100
