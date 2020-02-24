@@ -1,0 +1,46 @@
+// hash处理方式
+func isHappy(n int) bool {
+	result := make([]int,0)
+	for {
+		sum :=0
+		for n>0{
+			sum += (n%10)*(n%10)
+			n /=10
+		}
+		if sum==1{
+			return true
+		}
+		for _,val := range result{
+			if sum == val{
+				return  false;
+			}
+		}
+		result = append(result, sum)
+		n = sum
+	}
+
+}
+
+
+// 快慢指针
+
+func isHappy(n int) bool {
+	slow := n
+	fast := getSum(n)
+	for slow!=fast{
+		slow = getSum(slow)
+		fast = getSum(fast)
+		fast = getSum(fast)
+	}
+	return slow == 1
+}
+
+func getSum(n int) int{
+	res :=0
+	for n>0{
+		res += (n%10) * (n%10)
+		n /= 10
+	}
+	return res
+}
+
