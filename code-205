@@ -1,0 +1,50 @@
+func isIsomorphic(s string, t string) bool {
+	n1 := len(s)
+	n2 := len(t)
+	if n1!=n2 {
+		return false
+	}
+	stack1 :=getStack(s)
+	stack2 :=getStack(t)
+	for i:=0;i<n1;i++{
+		if stack1[i]!=stack2[i]{
+			return false
+		}
+	}
+	return true
+}
+
+func getStack(s string) []int{
+	n1 := len(s)
+	stack1 :=make([]int,n1)
+	hashmap := make(map[byte]int)
+	index := 1
+	for i:=0;i<n1;i++{
+		if hashmap[s[i]] == 0{
+			hashmap[s[i]] = index
+			index++
+		}
+		stack1[i] = hashmap[s[i]]
+	}
+	return stack1
+}
+
+
+
+func isIsomorphic(s string, t string) bool {
+	n1 := len(s)
+	n2 := len(t)
+	if n1!=n2 {
+		return false
+	}
+	stack1 := make([]int,128)
+	stack2 := make([]int,128)
+	for i:=0;i<n1;i++{
+		stack1[s[i]] += i+1
+		stack2[t[i]] += i+1
+		if stack1[s[i]]!=stack2[t[i]]{
+			return false
+		}
+	}
+	return true
+}
