@@ -1,0 +1,69 @@
+(1)暴力法
+func minSubArrayLen(s int, nums []int) int {
+	n := len(nums)
+	if n == 0{
+		return 0
+	}
+	sum := 0
+	for i:=0;i<n;i++{
+		sum += nums[i]
+	}
+	if sum<s{
+		return 0
+	}
+	min := math.MaxInt32
+	for i:=0;i<n-1;i++{
+		sum = nums[i]
+        if sum >= s{
+            return 1
+        }
+		for j:=i+1;j<n;j++{
+			sum += nums[j]
+			if sum >= s{
+				min = minInt(min,j-i+1)
+				break
+			}
+		}
+	}
+	return min
+}
+
+func minInt(a,b int) int{
+	if a>b{
+		a = b
+	}
+	return a
+}
+
+(2)滑动窗口 O(N)
+func minSubArrayLen(s int, nums []int) int {
+	n := len(nums)
+	if n == 0{
+		return 0
+	}
+	min := math.MaxInt32
+	l := 0
+	r := 0
+	sum := 0
+	for r<n{
+		sum += nums[r]
+		for sum >= s{
+			min = minInt(min,r-l+1)
+			sum -= nums[l]
+			l++
+		}
+		r++
+	}
+	if min == math.MaxInt32 {
+		return 0
+	}
+	return min
+}
+
+(3)二分查找O(logn)
+
+
+
+
+
+
