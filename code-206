@@ -1,0 +1,28 @@
+func reverseList(head *ListNode) *ListNode {
+	if head == nil{
+		return head
+	}
+	var res *ListNode
+	cur := head
+	for cur != nil{
+		next := cur.Next
+		cur.Next = res
+		res = cur
+		cur = next
+	}
+	return res
+}
+
+
+func reverseList(head *ListNode) *ListNode {
+	return reverse(nil,head)
+}
+
+func reverse(pre,cur *ListNode) *ListNode {
+	if cur == nil {
+		return pre
+	}
+	head := reverse(cur, cur.Next)
+	cur.Next = pre
+	return head
+}
