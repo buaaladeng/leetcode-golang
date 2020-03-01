@@ -1,0 +1,50 @@
+type WordDictionary struct {
+	List [26]*WordDictionary
+	End bool
+}
+
+
+/** Initialize your data structure here. */
+func Constructor() WordDictionary {
+	return WordDictionary{}
+}
+
+
+/** Adds a word into the data structure. */
+func (this *WordDictionary) AddWord(word string)  {
+	root := this
+	for i:=0;i<len(word);i++{
+		if root.List[word[i] - 'a'] == nil{
+			root.List[word[i] - 'a'] = new(WordDictionary)
+		}
+		root =  root.List[word[i] - 'a']
+	}
+	root.End = true
+}
+
+
+/** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+func (this *WordDictionary) Search(word string) bool {
+	return search(this,word,0)
+}
+
+func search(this *WordDictionary, word string,start int) bool {
+	root := this
+	if root == nil{
+		return false
+	}
+	if start == len(word){
+		return root.End
+	}
+	if word[start] == '.'{
+		for i:=0;i<26;i++{
+			if root.List[i]!= nil && search(root.List[i],word,start+1){
+				return true
+			}
+		}
+		return false
+	} else {
+		return search(root.List[word[start]-'a'],word,start+1)
+	}
+	return false
+}
