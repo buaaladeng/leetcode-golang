@@ -1,0 +1,43 @@
+func removeElements(head *ListNode, val int) *ListNode {
+	dummp := new(ListNode)
+	if head == nil{
+		return head
+	}
+	dummp.Next = head
+	p := dummp
+	for head != nil{
+		if head.Val != val{
+			p.Next = head
+			p = p.Next
+		}
+		head = head.Next
+		p.Next = nil
+	}
+	return dummp.Next
+}
+
+
+
+func removeElements(head *ListNode, val int) *ListNode {
+	if head == nil{
+		return head
+	}
+	dump := new(ListNode)
+	dump.Next = head
+	slow := dump
+	for slow.Next!=nil{
+		if slow.Next.Val == val{
+			slow.Next = slow.Next.Next
+		}else {
+			slow = slow.Next
+		}
+
+	}
+	return dump.Next
+}
+
+
+
+
+
+
