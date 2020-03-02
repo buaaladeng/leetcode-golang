@@ -1,0 +1,20 @@
+func findKthLargest(nums []int, k int) int {
+	sort.Ints(nums)
+	n:=len(nums)
+	res := 0
+	for i:=n-1;i>=0;i--{
+		res = nums[i]
+		k--
+		if k == 0{
+			break
+		}
+	}
+	return res
+}
+
+func findKthLargest(nums []int, k int) int {
+    n := len(nums)
+	sort.Ints(nums)
+	return nums[n-k]
+}
+
