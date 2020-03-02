@@ -31,3 +31,41 @@ func findOrder(numCourses int, prerequisites [][]int) []int {
 
 	return res
 }
+(2)DFS
+
+func findOrder(numCourses int, prerequisites [][]int) []int {
+	res := make([]int,0)
+	nums := make([][]int,numCourses)
+	for i:=0;i<numCourses;i++{
+		nums[i] = make([]int,numCourses)
+	}
+	for i:=0;i<len(prerequisites);i++{
+		nums[prerequisites[i][0]][prerequisites[i][1]] = 1
+	}
+	stack := make([]int,numCourses)
+	for i:=0;i<numCourses;i++ {
+		if dfs210(nums, stack, i, &res) {
+			return nil
+		}
+	}
+
+	return res
+}
+
+func dfs210(nums [][]int,tmp []int, start int, res *[]int) bool{
+	if tmp[start] == -1{
+		return false
+	}
+	if tmp[start] == 1{
+		return true
+	}
+	tmp[start] = 1
+	for i:=0;i<len(nums);i++{
+		if nums[start][i] == 1 && dfs210(nums,tmp,i,res) {
+			return true
+		}
+	}
+	*res = append(*res,start)
+	tmp[start] = -1
+	return false
+}
