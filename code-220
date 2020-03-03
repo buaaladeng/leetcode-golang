@@ -1,0 +1,46 @@
+func containsNearbyAlmostDuplicate(nums []int, k int, t int) bool {
+	n := len(nums)
+	for i:=0;i<n;i++{
+		num := nums[i]
+		r := minInt(n-1,i+k)
+		num_l := -t + num
+		num_r := t + num
+		for j:=i+1;j<=r;j++{
+			if nums[j] >= num_l && nums[j] <= num_r{
+				return true
+			}
+		}
+	}
+	return false
+}
+
+
+func containsNearbyAlmostDuplicate(nums []int, k int, t int) bool {
+	n := len(nums)
+    if k == 0 || t < 0 || n <= 1 {
+		return false
+	}
+	hashmap := make(map[int]int)
+	for i:=0;i<n;i++{
+		index := nums[i]/(t+1)
+        if nums[i] < 0{
+            index--
+        }
+		if _,ok:=hashmap[index];ok{
+			return true
+		}
+		if  _,ok:=hashmap[index-1];ok && nums[i] - hashmap[index-1] <= t{
+			return true
+		}
+
+		if  _,ok:=hashmap[index+1];ok &&hashmap[index+1] - nums[i]  <= t{
+			return true
+		}
+		hashmap[index] = nums[i]
+		if i>=k{
+			delete(hashmap,nums[i-k]/(t+1))
+		}
+	}
+	return false
+
+}
