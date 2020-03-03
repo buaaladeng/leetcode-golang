@@ -1,0 +1,24 @@
+func combinationSum3(k int, n int) [][]int {
+	res := make([][]int,0)
+	tmp := make([]int,0)
+	dfs216(k,n,&res,tmp,1)
+	return res
+}
+
+func dfs216(k,n int, res *[][]int, tmp []int,start int){
+	if len(tmp) == k && n == 0{
+		one := make([]int,k)
+		copy(one,tmp)
+		*res = append(*res,one)
+		return
+	}
+	if n <= 0 {
+		return
+	}
+
+	for i:=start;i<10;i++{
+		tmp = append(tmp,i)
+		dfs216(k,n-i,res,tmp,i+1)
+		tmp = tmp[:len(tmp)-1]
+	}
+}
