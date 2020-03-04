@@ -1,0 +1,48 @@
+type MyStack struct {
+	list1 []int
+	list2 []int
+	top int
+}
+
+
+/** Initialize your data structure here. */
+func Constructor() MyStack {
+	return MyStack{
+		list1:make([]int,0),
+		list2:make([]int,0),
+	}
+}
+
+
+/** Push element x onto stack. */
+func (this *MyStack) Push(x int)  {
+	this.list1 = append( this.list1,x)
+	this.top = x
+}
+
+
+/** Removes the element on top of the stack and returns that element. */
+func (this *MyStack) Pop() int {
+	n := len(this.list1)
+	for i:=0;i<n-1;i++{
+		this.list2 = append(this.list2,this.list1[0])
+		this.top = this.list1[0]
+		this.list1 = this.list1[1:]
+	}
+	res := this.list1[0]
+	this.list1 = this.list2
+	this.list2 = make([]int,0)
+	return res
+}
+
+
+/** Get the top element. */
+func (this *MyStack) Top() int {
+	return this.top
+}
+
+
+/** Returns whether the stack is empty. */
+func (this *MyStack) Empty() bool {
+	return len(this.list1) == 0
+}
