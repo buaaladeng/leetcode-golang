@@ -1,0 +1,35 @@
+func computeArea(A int, B int, C int, D int, E int, F int, G int, H int) int {
+	l1 := absInt(C-A)
+	h1 := absInt(D-B)
+	l2 := absInt(G-E)
+	h2 := absInt(H-F)
+hight := 0
+length := 0
+if B>=H || F>=D || E>=C || G<=A{
+return l1 * h1 + l2*h2
+} else{
+hight = minInt(H,D) - maxInt(B,F)
+length = minInt(C,G) -maxInt(A,E)
+}
+return l1 * h1 + l2*h2 - hight * length
+}
+func absInt(a int) int{
+	if a<0{
+		a = -a
+	}
+	return a
+}
+
+func maxInt(a,b int) int{
+	if a<b{
+		a = b
+	}
+	return a
+}
+
+func minInt(a,b int) int{
+	if a>b{
+		a = b
+	}
+	return a
+}
