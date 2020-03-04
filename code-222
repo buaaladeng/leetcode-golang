@@ -1,0 +1,54 @@
+func countNodes(root *TreeNode) int {
+	res := 0
+	if root == nil{
+		return res
+	}
+	left := getDepth(root.Left)
+	right := getDepth(root.Right)
+	if left == right{
+		res = countNodes(root.Right) + (1<<left)
+	}else {
+		res = countNodes(root.Left) + (1<<right)
+	}
+	return res
+}
+
+
+func getDepth(root *TreeNode)uint{
+	res:= 0
+	if root == nil{
+		return  uint(res)
+	}
+	for root != nil{
+		res++
+		root = root.Left
+	}
+	return uint(res)
+}
+
+
+
+func countNodes(root *TreeNode) int {
+	res := 0
+	if root == nil{
+		return res
+	}
+    left := uint(0)
+    node := root
+	for node!=nil{
+        left++
+        node = node.Left
+    }
+    right :=uint(0)
+    node = root
+	for node!=nil{
+        right++
+        node = node.Right
+    }
+	if left == right{
+		res = (1<<left)-1
+	}else {
+		res = countNodes(root.Left) + countNodes(root.Right) + 1
+	}
+	return res
+}
