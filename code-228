@@ -1,0 +1,68 @@
+func summaryRanges(nums []int) []string {
+	res := make([]string,0)
+	n := len(nums)
+	if n == 0{
+		return res
+	}
+	start := 0
+	end := start+1
+	for end < n{
+		if nums[end] - nums[end-1] == 1 {
+			end++
+			continue
+		}
+		one := strconv.Itoa(nums[start])
+		if end != start +1 {
+			one += "->"
+			one += strconv.Itoa(nums[end-1])
+		}
+		res = append(res,one)
+		start = end
+		end = start+1
+	}
+	one := strconv.Itoa(nums[start])
+    if end != start +1 {
+    one += "->"
+    one += strconv.Itoa(nums[end-1])
+    }
+	res = append(res,one)
+	return res
+}
+
+
+func summaryRanges(nums []int) []string {
+	res := make([]string,0)
+	n:=len(nums)
+	if n == 0{
+		return res
+	}
+	if n == 1{
+		return append(res,strconv.Itoa(nums[0]))
+	}
+	start := nums[0]
+	to := start
+	for i:=1;i<n;i++{
+		if nums[i] == to + 1{
+			to++
+		}else {
+			res = append(res,getStr(start,to))
+			start = nums[i]
+			to = start
+		}
+	}
+	res = append(res,getStr(start,to))
+	return res
+}
+
+func getStr(start,to int)string{
+	if start == to{
+		return strconv.Itoa(to)
+	}else {
+		return strconv.Itoa(start) +  "->" + strconv.Itoa(to)
+	}
+}
+
+
+
+
+
