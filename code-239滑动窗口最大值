@@ -86,4 +86,34 @@ func maxSlidingWindow(nums []int, k int) []int {
 	return res
 
 }
+(4)DP
+func maxSlidingWindow(nums []int, k int) []int {
+	n := len(nums)
+	res := make([]int,0)
+	if n == 0 {
+		return res
+	}
+	left := make([]int,n)
+	right := make([]int,n)
+	left[0] = nums[0]
+	right[n-1] = nums[n-1]
+	for i:=1;i<n;i++ {
+		if i%k == 0{
+			left[i] = nums[i]
+		} else {
+			left[i] = maxInt(nums[i],left[i-1])
+		}
+		j := n-1-i
+		if (j+1)%k == 0{
+			right[j] = nums[j]
+		}else {
+			right[j] = maxInt(nums[j],right[j+1])
+		}
 
+	}
+	for i:=0;i<n-k+1;i++{
+		res = append(res,maxInt(left[i+k-1],right[i]))
+	}
+	return res
+
+}
