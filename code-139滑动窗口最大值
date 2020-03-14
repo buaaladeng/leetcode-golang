@@ -1,0 +1,89 @@
+(1)最笨的方法
+func maxSlidingWindow(nums []int, k int) []int {
+    res := make([]int,0)
+    if len(nums) == 0{
+        return res
+    }
+	
+	for i:=0;i<len(nums)-k+1;i++{
+		res = append(res,max(nums[i:i+k]))
+	}
+	return res
+}
+
+func max(nums[]int)int{
+	n:=len(nums)
+	max := nums[0]
+	for i:=1;i<n;i++{
+		if nums[i] > max{
+			max = nums[i]
+		}
+	}
+	return max
+}
+（2）稍微优化一点
+func maxSlidingWindow(nums []int, k int) []int {
+	n := len(nums)
+	res := make([]int,0)
+    if n ==0{
+        return res
+    }
+	res = append(res,findMaxNum(nums,0,k-1))
+	start := 1
+	for start <= n-k {
+		end := start+k-1
+		if nums[end] >= res[len(res)-1]{
+			res = append(res,nums[end])
+			start++
+		}else {
+			res = append(res,findMaxNum(nums,start,end))
+			start++
+		}
+	}
+	return res
+
+}
+
+func findMaxNum(nums []int, start,end int) int{
+	max := nums[start]
+	for i:=start+1;i<=end;i++{
+		max = maxInt(max,nums[i])
+	}
+	return max
+}
+
+func maxInt(a,b int) int{
+	if a<b{
+		a = b
+	}
+	return a
+}
+
+（3）利用栈
+
+func maxSlidingWindow(nums []int, k int) []int {
+	res := make([]int,0)
+	n := len(nums)
+	if n == 0 || k == 0{
+		return res
+	}
+	queue := make([]int,0)
+	for i:=0;i<n;i++{
+		//fmt.Println(queue)
+		if len(queue) >0 &&  queue[0] -1 < i - k{
+			queue = queue[1:]
+		}
+		for len(queue) >0 && nums[i] > nums[queue[len(queue)-1]]{
+			queue = queue[:len(queue)-1]
+		}
+		queue = append(queue, i)
+
+		if i+1 - k >=0{
+			res = append(res, nums[queue[0]])
+		}
+
+	}
+	return res
+
+}
+
