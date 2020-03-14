@@ -1,0 +1,38 @@
+func diffWaysToCompute(input string) []int {
+	res := make([]int,0)
+	n := len(input)
+	if n == 0{
+		return res
+	}
+
+	for i:=0;i<n;i++{
+		if input[i] == '+'  || input[i]== '-' || input[i] == '*'{
+			left := diffWaysToCompute(input[:i])
+			right := diffWaysToCompute(input[i+1:])
+			for _,val1 := range left{
+				for _,val2 := range right{
+					res = append(res,getResult(input[i],val1,val2))
+				}
+			}
+
+		}
+	}
+    if len(res) == 0 {
+			temp, _ := strconv.Atoi(input)
+			res = append(res, temp)
+		}
+	return res
+}
+
+func getResult(opera byte,a ,b int)int{
+	switch opera {
+	case '+':
+		return a+b;
+	case '-':
+		return a-b;
+	case '*':
+		return a*b;
+	default:
+		return 0
+	}
+}
