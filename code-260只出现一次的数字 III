@@ -1,0 +1,32 @@
+func singleNumber(nums []int) []int {
+	xor :=0
+	for _,num := range nums{
+		xor ^= num
+	}
+	lowbit := xor & -xor
+	res := make([]int,2)
+	for _,num:=range nums{
+		if num & lowbit == 0{
+			res[0] ^= num
+		}else {
+			res[1] ^= num
+		}
+	}
+	return res
+}
+
+
+func singleNumber(nums []int) []int {
+	hashmap := make(map[int]int,0)
+	res := make([]int,0)
+	for _,num :=range nums{
+		hashmap[num]++
+	}
+	for _,num :=range nums{
+		if hashmap[num] == 1{
+			res = append(res,num)
+		}
+	}
+	
+	return res
+}
