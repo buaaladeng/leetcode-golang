@@ -1,0 +1,62 @@
+/**
+code-273
+*/
+func numberToWords(num int) string {
+	res := ""
+	if num == 0{
+		return "Zero"
+	}
+	cell :=[]string{""," Thousand"," Million"," Billion"}
+	stack := make([]int,0)
+
+	for num >0{
+		tmp := num % 1000
+		stack = append(stack,tmp)
+		num = (num - num %1000) / 1000
+	}
+	n := len(stack)
+	for i:=n-1;i>=0;i--{
+		if stack[i] == 0{
+			continue
+		}
+		res += getOneNumber(stack[i])
+		res += cell[i]
+	}
+	return strings.TrimSpace(res)
+
+}
+
+func getOneNumber(num int) string{
+	res := ""
+	one := []string{" One"," Two"," Three"," Four"," Five"," Six"," Seven"," Eight"," Nine"}
+	two := []string{" Eleven"," Twelve"," Thirteen"," Fourteen"," Fifteen"," Sixteen"," Seventeen"," Eighteen"," Nineteen"}
+	three := []string{" Ten"," Twenty"," Thirty"," Forty"," Fifty"," Sixty"," Seventy"," Eighty"," Ninety"}
+	if num/100 >0{
+		res += one[num/100-1]
+		res += " Hundred"
+		num = num - num/100 * 100
+	}
+	// == 0
+	if num == 0{
+		return res
+	}
+	// 1~9
+	if num < 10{
+		res += one[num%10-1]
+		return res
+	}
+	// 10 20 30 40 ...90
+	if num % 10 == 0{
+		res += three[num/10-1]
+		return res
+	}
+	// 11~ 19
+	if num / 10 == 1 {
+		res += two[num%10-1]
+		return res
+	}else {
+		res += three[num/10-1]
+		res += one[num%10-1]
+		return res
+	}
+}
