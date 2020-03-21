@@ -1,0 +1,58 @@
+func wordPattern(pattern string, str string) bool {
+	hashmap := make(map[byte]string)
+	exist := make(map[string]bool)
+	n1 := len(pattern)
+	words := strings.Split(str," ")
+	n2 := len(words)
+	if n1 != n2 {
+		return false
+	}
+	for i:=0;i<n1;i++{
+		if v,ok := hashmap[pattern[i]];ok{
+			if v != words[i]{
+				return false
+			}
+		}else {
+			if exist[words[i]]{
+				return false
+			}
+			hashmap[pattern[i]] = words[i]
+			exist[words[i]] = true
+		}
+	}
+	return true
+}
+
+
+
+func wordPattern(pattern string, str string) bool {
+	ps := strings.Split(pattern, "")
+	ss := strings.Split(str, " ")
+
+	if len(ps) != len(ss) {
+		return false
+	}
+
+	return isMatch(ps, ss) && isMatch(ss, ps)
+}
+
+func isMatch(s1, s2 []string) bool {
+	size := len(s1)
+
+	m := make(map[string]string, size)
+
+	var i int
+	var w string
+	var ok bool
+
+	for i = 0; i < size; i++ {
+		if w, ok = m[s1[i]]; ok {
+			if w != s2[i] {
+				return false
+			}
+		} else {
+			m[s1[i]] = s2[i]
+		}
+	}
+	return true
+}
