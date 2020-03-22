@@ -1,0 +1,19 @@
+1,hashmap
+
+func intersection(nums1 []int, nums2 []int) []int {
+	hashmap := make(map[int]bool)
+	res := make([]int,0)
+	n := len(nums1)
+	m := len(nums2)
+	for i:=0;i<n;i++{
+		hashmap[nums1[i]] = true
+	}
+	for i:=0;i<m;i++{
+		if hashmap[nums2[i]] == true{
+			res = append(res,nums2[i])
+			delete(hashmap,nums2[i])
+		}
+	}
+	return res
+}
+
