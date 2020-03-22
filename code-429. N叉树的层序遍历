@@ -1,0 +1,23 @@
+func levelOrder(root *Node) [][]int {
+	res := make([][]int,0)
+	stack := make([]*Node,0)
+	if root == nil{
+		return res
+	}
+	stack = append(stack,root)
+	for len(stack)>0{
+		n:=len(stack)
+		one := make([]int,0)
+		for n>0{
+			root := stack[0]
+			stack = stack[1:]
+			one = append(one,root.Val)
+			for i:=0;i<len(root.Children);i++{
+				stack = append(stack,root.Children[i])
+			}
+			n--
+		}
+		res = append(res,one)
+	}
+	return res
+}
