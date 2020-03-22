@@ -1,0 +1,50 @@
+1,暴力法，时间复杂度，O(N2)
+func findDuplicate(nums []int) int {
+	n := len(nums)
+	for i:=0;i<n;i++{
+		for j:=i+1;j<n;j++{
+			if nums[i] == nums[j]{
+				return nums[i];
+			}
+		}
+	}
+	return -1
+}
+2,二分搜索法
+func findDuplicate(nums []int) int {
+	n := len(nums)
+	left := 1
+	right := n-1
+	for left < right{
+		count := 0
+		mid := (left+right)/2
+		for i:=0;i<n;i++{
+			if nums[i]<=mid{
+				count++
+			}
+		}
+		if count>mid{
+			right = mid
+		}else {
+			left = mid+1
+		}
+	}
+	return left
+}
+3，快慢指针法
+func findDuplicate(nums []int) int {
+	slow := nums[0]
+	fast:= nums[nums[0]]
+	for slow != fast{
+		slow = nums[slow]
+		fast = nums[nums[fast]]
+	}
+	p1 :=0
+	p2 := slow
+	for p1 != p2{
+		p1 = nums[p1]
+		p2 = nums[p2]
+	}
+	return p1
+}
+
