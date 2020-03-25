@@ -1,0 +1,17 @@
+func canPermutePalindrome(s string) bool {
+	letters := make([]int,256)
+	for i:=0;i<len(s);i++{
+		if letters[s[i] - 'a'] == 1 {
+			letters[s[i] - 'a'] = 0
+		}else {
+			letters[s[i] - 'a']++
+		}
+	}
+	oddNum := 0
+	for i:=0;i<len(letters);i++{
+		if letters[i] == 1{
+			oddNum++
+		}
+	}
+	return len(s)%2 == 0 && oddNum == 0 || (len(s)%2 == 1 && oddNum == 1)
+}
