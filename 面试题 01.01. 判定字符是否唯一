@@ -1,0 +1,12 @@
+func isUnique(astr string) bool {
+	letters := make([]int,128)
+	for i:=0;i<len(astr);i++{
+		if letters[astr[i]] > 0{
+			return false
+		}else {
+			letters[astr[i]]++
+		}
+	}
+	return true
+}
+
