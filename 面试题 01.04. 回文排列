@@ -1,10 +1,10 @@
 func canPermutePalindrome(s string) bool {
 	letters := make([]int,256)
 	for i:=0;i<len(s);i++{
-		if letters[s[i] - 'a'] == 1 {
-			letters[s[i] - 'a'] = 0
+		if letters[s[i]] == 1 {
+			letters[s[i]] = 0
 		}else {
-			letters[s[i] - 'a']++
+			letters[s[i]]++
 		}
 	}
 	oddNum := 0
