@@ -1,0 +1,26 @@
+func compressString(S string) string {
+	n1 := len(S)
+	if n1 == 0{
+		return ""
+	}
+	var sb strings.Builder
+	pre := S[0]
+	count := 1
+	for i:=1;i<n1;i++{
+		if S[i]!=pre{
+			sb.WriteByte(pre)
+			sb.WriteString(strconv.Itoa(count))
+			pre = S[i]
+			count = 1
+		}else {
+			count++
+		}
+	}
+	sb.WriteByte(pre)
+	sb.WriteString(strconv.Itoa(count))
+	if sb.Len()>=n1{
+		return S
+	}else {
+		return sb.String()
+	}
+}
