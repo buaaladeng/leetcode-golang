@@ -1,0 +1,43 @@
+1，利用缓存一次性遍历
+func removeDuplicateNodes(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil{
+		return head
+	}
+	hashmap := make(map[int]bool,0)
+	root := head
+	hashmap[root.Val] = true
+	for root != nil && root.Next!=nil{
+		next := root.Next
+		if !hashmap[next.Val]{
+			hashmap[next.Val] = true
+			root = root.Next
+		}else {
+			root.Next = next.Next
+		}
+	}
+	return head
+}
+
+
+2，无缓存遍历
+
+func removeDuplicateNodes(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil{
+		return head
+	}
+	slow := head
+	for slow != nil {
+		cur := slow
+		fast := slow.Next
+		for fast !=nil{
+			if slow.Val == fast.Val{
+				cur.Next = fast.Next
+			}else {
+				cur = cur.Next
+			}
+            fast = fast.Next
+		}
+		slow = slow.Next
+	}
+	return head
+}
