@@ -1,0 +1,25 @@
+func merge(A []int, m int, B []int, n int)  {
+	index := m+n-1
+    m--
+    n--
+	for m >=0 && n >= 0{
+		if A[m]>B[n]{
+			A[index] = A[m]
+			m--
+		}else {
+			A[index] = B[n]
+			n--
+		}
+		index--
+	}
+	for m >=0{
+		A[index] = A[m]
+		m--
+		index--
+	}
+	for n >=0{
+		A[index] = B[n]
+		n--
+		index--
+	}
+}
