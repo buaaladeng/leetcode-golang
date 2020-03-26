@@ -1,0 +1,45 @@
+type TripleInOne struct {
+	list []int
+	nums []int
+	num int
+}
+
+
+func Constructor(stackSize int) TripleInOne {
+	list := make([]int,3 * stackSize)
+	return TripleInOne{list:list,nums:make([]int,3),num:stackSize}
+}
+
+
+func (this *TripleInOne) Push(stackNum int, value int)  {
+	if this.nums[stackNum] < this.num{
+		this.list[stackNum *this.num + this.nums[stackNum]]=value
+		this.nums[stackNum]++
+	}
+}
+
+
+func (this *TripleInOne) Pop(stackNum int) int {
+	if this.nums[stackNum] == 0{
+		return -1
+	}else {
+		res := this.list[stackNum *this.num + this.nums[stackNum]-1]
+		this.nums[stackNum]--
+		return res
+	}
+}
+
+
+func (this *TripleInOne) Peek(stackNum int) int {
+	if this.nums[stackNum] == 0{
+		return -1
+	}else {
+		res := this.list[stackNum *this.num + this.nums[stackNum]-1]
+		return res
+	}
+}
+
+
+func (this *TripleInOne) IsEmpty(stackNum int) bool {
+	return this.nums[stackNum] == 0
+}
