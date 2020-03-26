@@ -1,0 +1,67 @@
+func partition(head *ListNode, x int) *ListNode {
+	slow := head
+	fast := head
+	for slow!=nil && fast!=nil {
+		for slow != nil && slow.Val < x {
+			slow = slow.Next
+		}
+		if slow == nil{
+			break
+		}
+		fast = slow.Next
+		for fast != nil && fast.Val >= x {
+			fast = fast.Next
+		}
+		if fast == nil{
+			break
+		}
+		slow.Val, fast.Val = fast.Val, slow.Val
+	}
+	return head
+}
+
+
+
+func partition(head *ListNode, x int) *ListNode {
+	one := new(ListNode)
+	two := new(ListNode)
+	left := one
+	right := two
+	for head != nil{
+		if head.Val < x {
+			left.Next = head
+			left = left.Next
+		}else {
+			right.Next = head
+			right = right.Next
+		}
+		head = head.Next
+	}
+	left.Next = two.Next
+	right.Next = nil
+	return one.Next
+}
+
+//头插法
+	if head == nil || head.Next == nil{
+        return head
+    }
+    dummp := new(ListNode)
+	dummp.Next = head
+	pre := head
+	head = head.Next
+	for head!=nil{
+		if head.Val<x{
+			pre.Next = head.Next
+			head.Next = dummp.Next
+			dummp.Next = head
+			head = pre.Next
+			
+		}else{
+			pre = pre.Next
+			head = head.Next
+		}
+	}
+	return dummp.Next
+
+}
