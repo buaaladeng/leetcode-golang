@@ -1,0 +1,49 @@
+type MyQueue struct {
+	list1 []int
+	list2 []int
+}
+
+
+/** Initialize your data structure here. */
+func Constructor() MyQueue {
+	return MyQueue{}
+}
+
+
+/** Push element x to the back of queue. */
+func (this *MyQueue) Push(x int)  {
+	this.list2 = append(this.list2,x)
+}
+
+
+/** Removes the element from in front of queue and returns that element. */
+func (this *MyQueue) Pop() int {
+	if len(this.list1) == 0{
+		for len(this.list2)>0 {
+			this.list1 = append(this.list1,this.list2[len(this.list2)-1])
+			this.list2 = this.list2[:len(this.list2)-1]
+		}
+	}
+	res := this.list1[len(this.list1)-1]
+	this.list1 = this.list1[:len(this.list1)-1]
+	return res
+}
+
+
+/** Get the front element. */
+func (this *MyQueue) Peek() int {
+	if len(this.list1) == 0{
+		for len(this.list2)>0 {
+			this.list1 = append(this.list1,this.list2[len(this.list2)-1])
+			this.list2 = this.list2[:len(this.list2)-1]
+		}
+	}
+	res := this.list1[len(this.list1)-1]
+	return res
+}
+
+
+/** Returns whether the queue is empty. */
+func (this *MyQueue) Empty() bool {
+	return len(this.list1) == 0 && len(this.list2) == 0
+}
