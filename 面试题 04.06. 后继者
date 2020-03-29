@@ -1,0 +1,46 @@
+func inorderSuccessor(root *TreeNode, p *TreeNode) *TreeNode {
+	if root == nil{
+		return nil
+	}
+	res := getinorder(root)
+	n := len(res)
+	i:=0
+	for i=0;i<n;i++{
+		if res[i] == p{
+			break
+		}
+	}
+	if i+1 == n{
+		return nil
+	}
+	return res[i+1]
+}
+func getinorder(root *TreeNode)[]*TreeNode{
+	if root == nil{
+		return nil
+	}
+	res := make([]*TreeNode,0)
+	res = append(res,getinorder(root.Left)...)
+	res = append(res,root)
+	res = append(res,getinorder(root.Right)...)
+	return res
+}
+
+
+
+func inorderSuccessor(root *TreeNode, p *TreeNode) *TreeNode {
+	if root == nil{
+		return nil
+	}
+	if root.Val <= p.Val{
+		return inorderSuccessor(root.Right,p)
+	}else {
+		res := inorderSuccessor(root.Left,p)
+		if  res== nil{
+			return root
+		}else {
+			return res
+		}
+	}
+}
+
