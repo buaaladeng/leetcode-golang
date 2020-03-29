@@ -1,0 +1,17 @@
+func printBin(num float64) string {
+	if num<=0.0 || num >=1.0{
+		return "ERROR"
+	}
+	index := 0
+	res := "0."
+	for num>0{
+		num *= 2
+		res += strconv.Itoa(int(num))
+		num -= float64(int(num))
+		index++
+		if index > 31{
+			return "ERROR"
+		}
+	}
+	return res
+}
