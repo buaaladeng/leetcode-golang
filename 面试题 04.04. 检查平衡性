@@ -1,0 +1,29 @@
+func isBalanced(root *TreeNode) bool {
+	if root == nil{
+		return true
+	}
+	left := getDepth(root.Left)
+	right := getDepth(root.Right)
+	return absInt(left-right)<=1 && isBalanced(root.Left) && isBalanced(root.Right)
+}
+
+func getDepth(root *TreeNode)int{
+	if root == nil{
+		return 0
+	}
+	return maxInt(getDepth(root.Left),getDepth(root.Right))+1
+}
+
+func absInt(a int) int{
+	if a<0{
+		a = -a
+	}
+	return a
+}
+
+func maxInt(a,b int) int{
+	if a<b{
+		a = b
+	}
+	return a
+}
