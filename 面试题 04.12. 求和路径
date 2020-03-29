@@ -1,0 +1,26 @@
+func pathSum(root *TreeNode, sum int) int {
+    if root == nil{
+        return 0
+    }
+	res := 0
+	dfspath(root,sum,0,&res)
+	res += pathSum(root.Left,sum)
+	res += pathSum(root.Right,sum)
+	return res
+}
+
+func dfspath(root *TreeNode,sum int,cur int, res *int){
+	if root == nil{
+		return
+	}
+	cur += root.Val
+	if cur == sum {
+		*res++
+	}
+	if root.Left != nil{
+		dfspath(root.Left,sum,cur,res)
+	}
+	if root.Right != nil{
+		dfspath(root.Right,sum,cur,res)
+	}
+}
