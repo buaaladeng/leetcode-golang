@@ -1,0 +1,16 @@
+func isValidBST(root *TreeNode) bool {
+	min := math.MinInt32-1
+	max := math.MaxInt32+1
+	return valid(root,min,max)
+}
+func valid(root *TreeNode,min,max int)bool{
+	if root == nil{
+		return true
+	}
+	if root.Val > min && root.Val<max{
+		return valid(root.Left,min,root.Val) &&
+			valid(root.Right,root.Val,max)
+	}else {
+		return false
+	}
+}
