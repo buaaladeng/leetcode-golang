@@ -8,3 +8,12 @@ func insertBits(N int, M int, i int, j int) int {
 	N |= M << i
 	return N
 }
+
+
+func insertBits(N int, M int, i int, j int) int {
+	for k:=i;k<=j;k++{
+		N &= ^(1 << k)
+	}
+	N |= M << i
+	return N
+}
