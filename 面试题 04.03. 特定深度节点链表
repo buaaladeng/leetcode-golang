@@ -1,0 +1,30 @@
+func listOfDepth(tree *TreeNode) []*ListNode {
+	res := make([]*ListNode,0)
+	if tree == nil{
+		return res
+	}
+	stack := make([]*TreeNode,0)
+	stack = append(stack,tree)
+	for len(stack)>0{
+		n := len(stack)
+		one := new(ListNode)
+		cur := one
+		for n>0{
+			node := stack[0]
+			stack = stack[1:]
+			tmp := new(ListNode)
+			tmp.Val = node.Val
+			cur.Next = tmp
+			cur = cur.Next
+			if node.Left!=nil{
+				stack = append(stack,node.Left)
+			}
+			if node.Right!=nil{
+				stack = append(stack,node.Right)
+			}
+			n--
+		}
+		res = append(res,one.Next)
+	}
+	return res
+}
