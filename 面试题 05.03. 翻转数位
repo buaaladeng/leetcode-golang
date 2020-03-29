@@ -1,0 +1,24 @@
+func reverseBits(num int) int {
+	res := 0
+	cnt := 0
+	pre := -1
+	for i:=0;i<33;i++{
+		if num&1 == 1{
+			cnt++
+		}else {
+			res = maxInt(res,cnt)
+			cnt = i - pre
+			pre = i
+		}
+		num >>= 1
+	}
+	return res
+}
+
+
+func maxInt(a,b int) int{
+	if a<b{
+		a = b
+	}
+	return a
+}
