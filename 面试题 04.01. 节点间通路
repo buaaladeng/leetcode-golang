@@ -1,0 +1,58 @@
+BFS
+func findWhetherExistsPath(n int, graph [][]int, start int, target int) bool {
+	list := make([][]int,n)
+	for i:=0;i<n;i++{
+		list[i] = make([]int,0)
+	}
+	for _,one := range graph{
+		list[one[0]] = append(list[one[0]],one[1])
+	}
+	visit := make([]bool,n)
+	queue := make([]int,0)
+	queue = append(queue,start)
+	visit[start] = true
+	for len(queue)>0{
+		pre := queue[0]
+		queue = queue[1:]
+		for _,num := range list[pre]{
+			if num == target{
+				return true
+			}
+			if visit[num]{
+				continue
+			}
+			queue = append(queue,num)
+			visit[num] = true
+		}
+	}
+	return false
+}
+
+2,DFS
+func findWhetherExistsPath(n int, graph [][]int, start int, target int) bool {
+	list := make([][]int,n)
+	for i:=0;i<n;i++{
+		list[i] = make([]int,0)
+	}
+	for _,one := range graph{
+		list[one[0]] = append(list[one[0]],one[1])
+	}
+	visit := make([]bool,n)
+	visit[start] = true
+	res := false
+	dfsfind(list,start,target,visit,&res)
+	return res
+}
+
+func dfsfind(list [][]int,start,target int,visit []bool,res *bool){
+	if start == target{
+		*res = true
+	}
+	for i:=0;i<len(list[start]);i++{
+		if !visit[list[start][i]]{
+			visit[list[start][i]] = true
+			dfsfind(list,list[start][i],target,visit,res)
+			visit[list[start][i]] = false
+		}
+	}
+}
