@@ -14,3 +14,15 @@ func dfssub(res *[][]int,tmp []int,start int,nums []int){
 		tmp = tmp[:len(tmp)-1]
 	}
 }
+
+
+func subsets(nums []int) [][]int {
+	result := make([][]int,1)
+	for _,n :=range nums{
+		for _,r:= range result{
+			result = append(result, append([]int{n}, r...))
+		}
+	}
+	return result
+
+}
