@@ -1,0 +1,40 @@
+func permutation(S string) []string {
+	res := make([]string,0)
+	n := len(S)
+	visit := make([]bool,n)
+	tmp := make([]byte,0)
+	arrays := []byte(S)
+	nums := make([]int,n)
+	for i:=0;i<len(arrays);i++{
+		nums[i] = int(arrays[i] - 'a')
+	}
+	sort.Ints(nums)
+	for i:=0;i<len(nums);i++{
+		arrays[i] = byte(nums[i] + 'a')
+	}
+	dfsper(arrays,&res,tmp,visit)
+	return res
+}
+
+func dfsper(arrays []byte, res *[]string, tmp []byte,visit []bool){
+	n := len(arrays)
+	if len(tmp) == n{
+		one := make([]byte,len(tmp))
+		copy(one,tmp)
+		*res = append(*res,string(one))
+		return
+	}
+	for i:=0;i<n;i++{
+		if !visit[i]{
+			if i>0 && arrays[i] == arrays[i-1] && !visit[i-1]{
+				continue
+			}else {
+				tmp = append(tmp,arrays[i])
+				visit[i] = true
+				dfsper(arrays,res,tmp,visit)
+				tmp = tmp[:len(tmp)-1]
+				visit[i] =false
+			}
+		}
+	}
+}
