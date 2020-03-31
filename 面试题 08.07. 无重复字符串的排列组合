@@ -1,0 +1,46 @@
+1，递归
+func permutation(S string) []string {
+	n:=len(S)
+	res := make([]string,0)
+	if len(S) == 1{
+		return []string{S}
+	}
+	for i:=0;i<n;i++{
+		one := S[i]
+		tmp := permutation(S[:i]+S[i+1:])
+		for j:=0;j<len(tmp);j++{
+			res = append(res,string(one) + tmp[j])
+		}
+	}
+	return res
+}
+
+2，DFS
+func permutation(S string) []string {
+	res := make([]string,0)
+	n := len(S)
+	visit := make([]bool,n)
+	tmp := make([]byte,0)
+	dfsper(S,&res,tmp,visit)
+	return res
+}
+
+func dfsper(S string, res *[]string, tmp []byte,visit []bool){
+	n := len(S)
+	if len(tmp) == n{
+		one := make([]byte,len(tmp))
+		copy(one,tmp)
+		*res = append(*res,string(one))
+		return
+	}
+	for i:=0;i<n;i++{
+		if visit[i] == true{
+			continue
+		}
+		tmp = append(tmp,S[i])
+		visit[i] = true
+		dfsper(S,res,tmp,visit)
+		tmp = tmp[:len(tmp)-1]
+		visit[i] =false
+	}
+}
