@@ -1,0 +1,27 @@
+func generateParenthesis(n int) []string {
+	res := make([]string,0)
+	tmp := make([]byte,0)
+	dfsGenerate(&res,tmp,0,0,n)
+	return res
+}
+func dfsGenerate(res *[]string,tmp []byte,left,right,n int){
+	if left == n && right == n{
+		one := make([]byte,len(tmp))
+		copy(one,tmp)
+		*res = append(*res,string(one))
+		return
+	}
+	if right > left || left > n || right > n{
+		return
+	}
+	if left<n{
+		tmp = append(tmp,'(')
+		dfsGenerate(res,tmp,left+1,right,n)
+		tmp = tmp[:len(tmp)-1]
+	}
+	if right<n {
+		tmp = append(tmp,')')
+		dfsGenerate(res,tmp,left,right+1,n)
+		tmp = tmp[:len(tmp)-1]
+	}
+}
