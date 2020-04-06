@@ -1,0 +1,15 @@
+func findRepeatNumber(nums []int) int {
+	n := len(nums)
+	if n == 0{
+		return -1
+	}
+	hashmap := make(map[int]bool,n)
+	for i:=0;i<n;i++{
+		if hashmap[nums[i]]{
+			return nums[i]
+		}
+		hashmap[nums[i]] = true
+	}
+	return -1
+}
+
