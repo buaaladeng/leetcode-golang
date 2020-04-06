@@ -1,0 +1,10 @@
+func mirrorTree(root *TreeNode) *TreeNode {
+	res := new(TreeNode)
+	if root == nil{
+		return nil
+	}
+	res.Val = root.Val
+	res.Left = mirrorTree(root.Right)
+	res.Right = mirrorTree(root.Left)
+	return res
+}
