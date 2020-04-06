@@ -1,0 +1,32 @@
+type CQueue struct {
+	list1 []int
+	list2 []int
+}
+
+
+func Constructor() CQueue {
+	return CQueue{}
+}
+
+
+func (this *CQueue) AppendTail(value int)  {
+	this.list1 = append(this.list1,value)
+}
+
+
+func (this *CQueue) DeleteHead() int {
+	if len(this.list2) == 0{
+		n:= len(this.list1)
+		for n > 0{
+			this.list2 = append(this.list2,this.list1[len(this.list1)-1])
+			this.list1 = this.list1[:len(this.list1)-1]
+			n--
+		}
+	}
+	if len(this.list2) == 0{
+		return -1
+	}
+	res := this.list2[len(this.list2)-1]
+	this.list2 = this.list2[:len(this.list2)-1]
+	return res
+}
