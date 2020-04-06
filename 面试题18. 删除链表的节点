@@ -1,0 +1,14 @@
+func deleteNode(head *ListNode, val int) *ListNode {
+	dummp := new(ListNode)
+	dummp.Next = head
+	root := dummp
+	for root.Next!=nil{
+		one := root.Next
+		if one.Val == val{
+			root.Next =one.Next
+		} else {
+			root = one
+		}
+	}
+	return dummp.Next
+}
