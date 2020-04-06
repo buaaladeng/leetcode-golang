@@ -1,0 +1,31 @@
+func levelOrder(root *TreeNode) [][]int {
+	res := make([][]int,0)
+	if root == nil{
+		return res
+	}
+	stack := make([]*TreeNode,0)
+	stack = append(stack,root)
+	flag := true
+	for len(stack)>0{
+		n := len(stack)
+		tmp := make([]int,n)
+		for i:=0;i<n;i++{
+			root := stack[i]
+			if flag{
+				tmp[i] = root.Val
+			}else {
+				tmp[n-1-i] = root.Val
+			}
+			if root.Left!=nil{
+				stack = append(stack,root.Left)
+			}
+			if root.Right!=nil{
+				stack = append(stack,root.Right)
+			}
+		}
+		flag = !flag
+		stack = stack[n:]
+		res = append(res,tmp)
+	}
+	return res
+}
